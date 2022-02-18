@@ -6,6 +6,8 @@ public class Wheel : MonoBehaviour
     private WheelCollider _wheelCollider;
     [HideInInspector] public float motorTorque;
     [HideInInspector] public float brakeTorque;
+    [HideInInspector] public float steerAngle;
+    public bool IsMotorWheel;
 
     private void Start()
     {
@@ -14,12 +16,24 @@ public class Wheel : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PerformMovement();
+        if (IsMotorWheel)
+        {
+            PerformMovement();
+        }
+        else
+        {
+            PerformAngle();
+        }
     }
 
     private void PerformMovement()
     {
         _wheelCollider.motorTorque = motorTorque;
         _wheelCollider.brakeTorque = brakeTorque;
+    }
+
+    private void PerformAngle()
+    {
+        _wheelCollider.steerAngle = steerAngle;
     }
 }

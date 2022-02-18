@@ -17,5 +17,6 @@ public class VehiculeController : MonoBehaviour
     {
         _motor.motorTorque = motorTorque;
         _motor.brakeTorque = brakeTorque;
+        _motor.steerAngle = 25f;
     }
 }

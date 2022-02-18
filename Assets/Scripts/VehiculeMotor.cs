@@ -7,6 +7,7 @@ public class VehiculeMotor : MonoBehaviour
 
     [HideInInspector] public float motorTorque;
     [HideInInspector] public float brakeTorque;
+    [HideInInspector] public float steerAngle;
     [SerializeField] Transform _centerOfMass;
 
     private Rigidbody _rb;
@@ -28,6 +29,7 @@ public class VehiculeMotor : MonoBehaviour
         {
             wheel.motorTorque = motorTorque;
             wheel.brakeTorque = brakeTorque;
+            wheel.steerAngle = steerAngle;
         }
     }
 }
