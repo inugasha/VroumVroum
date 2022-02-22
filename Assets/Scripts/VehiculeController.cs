@@ -6,12 +6,12 @@ using UnityEngine.InputSystem.Controls;
 public class VehiculeController : MonoBehaviour
 {
     private VehiculeMotor _motor;
-    private float movementX;
-    private float movementY;
+    private float _movementX;
+    private float _movementY;
 
-    public float motorTorque = 0.0f;
-    public float brakeTorque;
-    public float rotation;
+    public float MotorTorque = 0.0f;
+    public float BrakeTorque;
+    public float Rotation;
 
     private void Start()
     {
@@ -20,31 +20,31 @@ public class VehiculeController : MonoBehaviour
 
     private void Update()
     {
-        if (movementY  > 0.0f)
+        if (_movementY  > 0.0f)
         {
-            _motor.motorTorque = movementY * motorTorque;
+            _motor.motorTorque = _movementY * MotorTorque;
             _motor.brakeTorque = 0.0f;
         }
         else
         {
-            if (movementY < 0.0f)
+            if (_movementY < 0.0f)
             {
-                _motor.brakeTorque = (-movementY) * motorTorque * 10;
+                _motor.brakeTorque = (-_movementY) * MotorTorque * 10;
             }
             else
             {
-                _motor.brakeTorque = motorTorque;
+                _motor.brakeTorque = MotorTorque;
             }
         }
-        _motor.steerAngle = movementX * rotation;
+        _motor.steerAngle = _movementX * Rotation;
     }
 
     private void OnMove(InputValue movementValue)
     {
         Vector2 movementVector = movementValue.Get<Vector2>();
-        movementX = movementVector.x;
-        movementY = movementVector.y;
-        Debug.Log(movementY);
+        _movementX = movementVector.x;
+        _movementY = movementVector.y;
+        Debug.Log(_movementY);
     }
 
     /*
