@@ -22,21 +22,21 @@ public class VehiculeController : MonoBehaviour
     {
         if (_movementY  > 0.0f)
         {
-            _motor.motorTorque = _movementY * MotorTorque;
-            _motor.brakeTorque = 0.0f;
+            _motor.MotorTorque = _movementY * MotorTorque;
+            _motor.BrakeTorque = 0.0f;
         }
         else
         {
             if (_movementY < 0.0f)
             {
-                _motor.brakeTorque = (-_movementY) * MotorTorque * 10;
+                _motor.BrakeTorque = (-_movementY) * MotorTorque * 10;
             }
             else
             {
-                _motor.brakeTorque = MotorTorque;
+                _motor.BrakeTorque = MotorTorque;
             }
         }
-        _motor.steerAngle = _movementX * Rotation;
+        _motor.SteerAngle = _movementX * Rotation;
     }
 
     private void OnMove(InputValue movementValue)

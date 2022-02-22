@@ -3,14 +3,15 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class VehiculeMotor : MonoBehaviour
 {
-    [SerializeField] private Wheel[] _wheels;
-
-    [HideInInspector] public float motorTorque;
-    [HideInInspector] public float brakeTorque;
-    [HideInInspector] public float steerAngle;
-    [SerializeField] Transform _centerOfMass;
-
     private Rigidbody _rb;
+
+    [SerializeField] private Wheel[] _wheels;
+    [SerializeField] private Transform _centerOfMass;
+
+    [HideInInspector] public float MotorTorque;
+    [HideInInspector] public float BrakeTorque;
+    [HideInInspector] public float SteerAngle;
+
 
     private void Start()
     {
@@ -27,9 +28,9 @@ public class VehiculeMotor : MonoBehaviour
     {
         foreach (Wheel wheel in _wheels)
         {
-            wheel.motorTorque = motorTorque;
-            wheel.brakeTorque = brakeTorque;
-            wheel.steerAngle = steerAngle;
+            wheel.MotorTorque = MotorTorque;
+            wheel.BrakeTorque = BrakeTorque;
+            wheel.SteerAngle = SteerAngle;
         }
     }
 }
