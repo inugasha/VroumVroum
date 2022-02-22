@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 
 [RequireComponent(typeof(VehiculeMotor))]
 public class VehiculeController : MonoBehaviour
@@ -33,15 +32,6 @@ public class VehiculeController : MonoBehaviour
         }
         else
         {
-            //if (_movementY < 0.0f)
-            //{
-            //    _motor.BrakeTorque = (-_movementY) * MotorTorque * 10;
-            //}
-            //else
-            //{
-            //    _motor.BrakeTorque = MotorTorque;
-            //}
-
             _motor.BrakeTorque = _movementY < 0.0f ? (-_movementY) * MotorTorque * 10 : MotorTorque;
         }
     }
@@ -56,13 +46,11 @@ public class VehiculeController : MonoBehaviour
         Vector2 movementVector = movementValue.Get<Vector2>();
         _movementX = movementVector.x;
         _movementY = movementVector.y;
-        //Debug.Log(_movementY);
     }
 
-    /*
-    private void OnAcceleration(AxisControl inputValue)
+    private void OnRespawn()
     {
-        Debug.Log(inputValue);
+        //TODO il faut avoir un checkpoint par défaut sur la ligne de départ pour ne pas avoir d'erreur
+        transform.position = GameManager.Instance.GetLastCheckpointPosition();
     }
-    */
 }
