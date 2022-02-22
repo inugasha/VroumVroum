@@ -9,7 +9,7 @@ public class Wheel : MonoBehaviour
     [HideInInspector] public float BrakeTorque;
     [HideInInspector] public float SteerAngle;
 
-    public bool IsMotorWheel;
+    public bool IsDirectionalWheel;
 
     private void Start()
     {
@@ -18,11 +18,9 @@ public class Wheel : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsMotorWheel)
-        {
-            PerformMovement();
-        }
-        else
+        PerformMovement();
+
+        if (IsDirectionalWheel)
         {
             PerformAngle();
         }

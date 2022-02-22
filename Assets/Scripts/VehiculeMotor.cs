@@ -4,19 +4,20 @@ using UnityEngine;
 public class VehiculeMotor : MonoBehaviour
 {
     private Rigidbody _rb;
+    private Wheel[] _wheels;
 
-    [SerializeField] private Wheel[] _wheels;
     [SerializeField] private Transform _centerOfMass;
 
     [HideInInspector] public float MotorTorque;
     [HideInInspector] public float BrakeTorque;
     [HideInInspector] public float SteerAngle;
 
-
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.centerOfMass = _centerOfMass.transform.localPosition;
+
+        _wheels = GetComponentsInChildren<Wheel>();
     }
 
     private void Update()
