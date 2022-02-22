@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(VehiculeMotor))]
+[RequireComponent(typeof(VehiculeMotor),typeof(Vehicule))]
 public class VehiculeController : MonoBehaviour
 {
     private VehiculeMotor _motor;
+    private Vehicule _vehicule;
     private float _movementX;
     private float _movementY;
 
@@ -15,6 +16,7 @@ public class VehiculeController : MonoBehaviour
     private void Start()
     {
         _motor = GetComponent<VehiculeMotor>();
+        _vehicule = GetComponent<Vehicule>();
     }
 
     private void Update()
@@ -50,7 +52,11 @@ public class VehiculeController : MonoBehaviour
 
     private void OnRespawn()
     {
-        //TODO il faut avoir un checkpoint par défaut sur la ligne de départ pour ne pas avoir d'erreur
-        transform.position = GameManager.Instance.GetLastCheckpointPosition();
+        _vehicule.Respawn();
+    }
+
+    private void OnDamage()
+    {
+        _vehicule.TakeDamage(25);
     }
 }

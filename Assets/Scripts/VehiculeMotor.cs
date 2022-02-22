@@ -34,4 +34,10 @@ public class VehiculeMotor : MonoBehaviour
             wheel.SteerAngle = SteerAngle;
         }
     }
+
+    public void InstantStopVehicule()
+    {
+        _rb.velocity = Vector3.zero;
+        _rb.angularVelocity = Vector3.zero;
+    }
 }

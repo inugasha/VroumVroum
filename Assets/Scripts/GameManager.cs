@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
         _gameStart = true;
     }
 
-    public Vector3 GetLastCheckpointPosition()
+    public Transform GetLastCheckpointPosition()
     {
         int index = -1;
 
@@ -114,12 +114,13 @@ public class GameManager : MonoBehaviour
 
         if(index < 0)
         {
+            //TODO
             //No checkpoint pass
             //Return default value (start line)
-            return Vector3.zero;
+            return gameObject.transform;
         }
 
-        return _checkpoints[index].gameObject.transform.position;
+        return _checkpoints[index].gameObject.transform;
     }
 
 }
