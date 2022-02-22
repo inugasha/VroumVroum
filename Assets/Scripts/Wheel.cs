@@ -10,6 +10,7 @@ public class Wheel : MonoBehaviour
     [HideInInspector] public float SteerAngle;
 
     public bool IsDirectionalWheel;
+    public float rpm;
 
     private void Start()
     {
@@ -30,6 +31,7 @@ public class Wheel : MonoBehaviour
     {
         _wheelCollider.motorTorque = MotorTorque;
         _wheelCollider.brakeTorque = BrakeTorque;
+        rpm = _wheelCollider.rpm;
     }
 
     private void PerformAngle()
