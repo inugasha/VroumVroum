@@ -3,22 +3,27 @@ using UnityEngine;
 public class Vehicule : MonoBehaviour
 {
     private VehiculeMotor _motor;
+    private int _currentHP;
 
+    public delegate void HPChanged(int amount);
+    public HPChanged HPChangedDelegate;
 
-    public int CurrentHP = 100;
-    public int MaxHP;
+    [SerializeField] private int _maxHP = 100;
 
     private void Start()
     {
         _motor = GetComponent<VehiculeMotor>();
-        CurrentHP = MaxHP;
+        _currentHP = _maxHP;
+        HPChangedDelegate?.Invoke(_currentHP);
     }
 
     public void TakeDamage(int amount)
     {
-        CurrentHP = Mathf.Clamp(CurrentHP - amount, 0, MaxHP);
+        _currentHP = Mathf.Clamp(_currentHP - amount, 0, _maxHP);
 
-        if (CurrentHP <= 0)
+        HPChangedDelegate?.Invoke(_currentHP);
+
+        if (_currentHP <= 0)
         {
             Die();
         }
@@ -39,6 +44,7 @@ public class Vehicule : MonoBehaviour
         transform.position = checkpointTransform.position;
         transform.rotation = checkpointTransform.rotation;
 
-        CurrentHP = MaxHP;
+        _currentHP = _maxHP;
+        HPChangedDelegate?.Invoke(_currentHP);
     }
 }
