@@ -24,6 +24,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Decceleration",
+                    "type": "Value",
+                    "id": "cb14b959-5d4b-4a87-908e-cead882267fb",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Respawn",
                     "type": "Button",
                     "id": "448a063f-4512-4e33-a0c0-c29189440fa8",
@@ -156,10 +165,10 @@
                 {
                     "name": "",
                     "id": "620253b6-6bdf-4570-b237-85869af3290a",
-                    "path": "<Keyboard>/upArrow",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Gamepad",
                     "action": "Acceleration",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -183,6 +192,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Damage",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c106d3e4-9deb-428a-ac6a-e4808e74ea39",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Decceleration",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

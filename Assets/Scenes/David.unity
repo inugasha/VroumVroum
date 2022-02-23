@@ -462,10 +462,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vehicule
       objectReference: {fileID: 0}
-    - target: {fileID: 8224545030060866559, guid: 590b4304e3e7b9f4482aa26f64205c66, type: 3}
-      propertyPath: BrakeTorque
-      value: 2000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 590b4304e3e7b9f4482aa26f64205c66, type: 3}
 --- !u!1 &2077597321

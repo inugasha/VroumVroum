@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -39,5 +40,12 @@ public class VehiculeMotor : MonoBehaviour
     {
         _rb.velocity = Vector3.zero;
         _rb.angularVelocity = Vector3.zero;
+    }
+
+    public float GetRPM()
+    {
+        float? rpm = _wheels.LastOrDefault(x => !x.IsDirectionalWheel)?.rpm;
+
+        return rpm == null ? 0f : (float)rpm;
     }
 }
