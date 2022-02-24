@@ -11,6 +11,12 @@ public class Vehicule : MonoBehaviour
 
     [SerializeField] private int _maxHP = 100;
 
+    public int MaxHP
+    {
+        get { return _maxHP; }
+        private set { _maxHP = value; }
+    }
+
     private void Start()
     {
         _motor = GetComponent<VehiculeMotor>();
