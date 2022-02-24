@@ -1,9 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 public class PlayerData
 {
+    public delegate void ValueChanged(object obj);
+    public event ValueChanged BestTimeChanged;
+    public event ValueChanged LastTimeChanged;
+    public event ValueChanged CurrentRoundChanged;
+
     public PlayerData(int checkpointAmount, int deviceId)
     {
         DeviceId = deviceId;
@@ -15,8 +16,8 @@ public class PlayerData
     public float BestTime;
     public float LastTime;
     public int CurrentRound;
-    private float _actualTime;
 
+    private float _actualTime;
 
     public void AddTime(float amount)
     {
@@ -26,11 +27,14 @@ public class PlayerData
     public void RoundFinished()
     {
         CurrentRound++;
+        CurrentRoundChanged?.Invoke(CurrentRound);
         LastTime = _actualTime;
+        LastTimeChanged?.Invoke(LastTime);
 
-        if(LastTime < BestTime)
+        if (LastTime < BestTime)
         {
             BestTime = LastTime;
+            BestTimeChanged?.Invoke(BestTime);
         }
 
         _actualTime = 0f;
