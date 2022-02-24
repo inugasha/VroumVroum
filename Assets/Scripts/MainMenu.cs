@@ -36,31 +36,28 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
+        //TODO afficher le nbre de tour et rendre modifiable
+        int maxRound = 3;
+
         GameObject instance = Instantiate(_utilPrefab);
 
         DontDestroyOnLoad(instance);
 
         AsyncOperation asyncOp = SceneManager.LoadSceneAsync(_gameSceneName);
-        instance.GetComponent<Utils>().SetupGame(asyncOp, _gamepads);
+        instance.GetComponent<Utils>().SetupGame(asyncOp, _gamepads, maxRound);
     }
 
     private void OnAddPlayer()
     {
         if (!_lobbyMenu.activeInHierarchy) return;
 
-        foreach (var gamepad in Gamepad.all.ToList())
+        foreach (Gamepad gamepad in Gamepad.all.ToList())
         {
             if (_gamepadIds.Contains(gamepad.deviceId)) continue;
 
             if (gamepad.buttonEast.IsPressed(1f))
             {
-                _gamepadIds.Add(gamepad.deviceId);
-                _gamepads.Add(gamepad);
-
-                GameObject instanceUI = Instantiate(_playerInfoUIPrefab, _playersUI.transform);
-                instanceUI.GetComponent<PlayerInfoUI>().Setup(_gamepads.Count);
-
-                _playerUis.Add(instanceUI);
+                AddPlayer(gamepad);
             }
         }
 
@@ -68,6 +65,17 @@ public class MainMenu : MonoBehaviour
         {
             _playButton.interactable = true;
         }
+    }
+
+    private void AddPlayer(Gamepad gamepad)
+    {
+        _gamepadIds.Add(gamepad.deviceId);
+        _gamepads.Add(gamepad);
+
+        GameObject instanceUI = Instantiate(_playerInfoUIPrefab, _playersUI.transform);
+        instanceUI.GetComponent<PlayerInfoUI>().Setup(_gamepads.Count);
+
+        _playerUis.Add(instanceUI);
     }
 
 

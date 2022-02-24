@@ -7,11 +7,13 @@ public class Utils : MonoBehaviour
 {
     private AsyncOperation _asyncOp;
     private List<Gamepad> _gamepads;
+    private int _maxRound;
 
-    public void SetupGame(AsyncOperation asyncOp, List<Gamepad> gamepads)
+    public void SetupGame(AsyncOperation asyncOp, List<Gamepad> gamepads,int maxRound)
     {
         _asyncOp = asyncOp;
         _gamepads = gamepads;
+        _maxRound = maxRound;
 
         StartCoroutine(SetupGameRoutine());
     }
@@ -25,7 +27,7 @@ public class Utils : MonoBehaviour
 
         if (_asyncOp.isDone)
         {
-            GameManager.Instance.StartGame(_gamepads);
+            GameManager.Instance.StartGame(_gamepads, _maxRound);
             Destroy(gameObject);
         }
     }

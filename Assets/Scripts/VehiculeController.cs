@@ -26,6 +26,7 @@ public class VehiculeController : MonoBehaviour
 
     private void Update()
     {
+        if (!GameManager.Instance.GameStart) return;
         CalculateTorque();
         CalculateWheelsRotation();
     }
