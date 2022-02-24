@@ -42,9 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Damage",
+                    "name": "AddPlayer",
                     "type": "Button",
-                    "id": "6b7d2182-0c9b-4b0b-aba3-7ede4a6b7f5d",
+                    "id": "a9b5b3a6-2763-464a-a51e-4ce1bca20d72",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -176,22 +176,11 @@
                 {
                     "name": "",
                     "id": "f166086c-7c46-4bbe-9006-1ef2ea14c62c",
-                    "path": "<Keyboard>/#(R)",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Gamepad",
                     "action": "Respawn",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "afe0a1ef-7763-4301-be57-d6d2a4212d73",
-                    "path": "<Keyboard>/#(T)",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Damage",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -203,6 +192,17 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Decceleration",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d5030bfa-39c9-4064-a86e-d9a642118152",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "AddPlayer",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
