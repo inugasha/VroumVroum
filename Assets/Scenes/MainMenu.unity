@@ -773,6 +773,7 @@ RectTransform:
   - {fileID: 1578814584}
   - {fileID: 128288942}
   - {fileID: 1228387495}
+  - {fileID: 1158946043}
   m_Father: {fileID: 1589704156}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -794,7 +795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.6226415, g: 0.5844607, b: 0.5844607, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1295,6 +1296,66 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124640095}
   m_CullTransparentMesh: 1
+--- !u!1 &1158946042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1158946043}
+  - component: {fileID: 1158946044}
+  m_Layer: 5
+  m_Name: Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1158946043
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158946042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 193133640}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 33.02234, y: -64.993614}
+  m_SizeDelta: {x: 1675.0103, y: 438.7401}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1158946044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158946042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_StartCorner: 0
+  m_StartAxis: 0
+  m_CellSize: {x: 250, y: 250}
+  m_Spacing: {x: 15, y: 15}
+  m_Constraint: 0
+  m_ConstraintCount: 2
 --- !u!1 &1228387494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,6 +1836,8 @@ MonoBehaviour:
   _gameSceneName: Coco
   _utilPrefab: {fileID: 8407116302651841685, guid: 733c63b90b076754083cd217e22dc0aa, type: 3}
   _playButton: {fileID: 1228387496}
+  _playerInfoUIPrefab: {fileID: 3622626027874802250, guid: f18a8865c214f9f459253e0f13109815, type: 3}
+  _playersUI: {fileID: 1158946042}
 --- !u!114 &1589704158
 MonoBehaviour:
   m_ObjectHideFlags: 0

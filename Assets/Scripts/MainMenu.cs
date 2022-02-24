@@ -12,9 +12,12 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private string _gameSceneName;
     [SerializeField] private GameObject _utilPrefab;
     [SerializeField] private Button _playButton;
+    [SerializeField] private GameObject _playerInfoUIPrefab;
+    [SerializeField] private GameObject _playersUI;
 
     private List<int> _gamepadIds = new List<int>();
     private List<Gamepad> _gamepads = new List<Gamepad>();
+    private List<GameObject> _playerUis = new List<GameObject>();
 
     public void OpenLobbyMenu()
     {
@@ -28,6 +31,8 @@ public class MainMenu : MonoBehaviour
 
         _gamepadIds.Clear();
         _gamepads.Clear();
+
+        _playerUis.ForEach(x => Destroy(x));
     }
 
     public void StartGame()
@@ -52,6 +57,11 @@ public class MainMenu : MonoBehaviour
             {
                 _gamepadIds.Add(gamepad.deviceId);
                 _gamepads.Add(gamepad);
+
+                GameObject instanceUI = Instantiate(_playerInfoUIPrefab, _playersUI.transform);
+                instanceUI.GetComponent<PlayerInfoUI>().Setup(_gamepads.Count);
+
+                _playerUis.Add(instanceUI);
             }
         }
 

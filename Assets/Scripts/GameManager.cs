@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Checkpoint[] _checkpoints;
     [SerializeField] private GameObject _vehiculePrefab;
+    [SerializeField] private Transform _lineStart;
 
     private float _bestTime;
     private float _actualTime;
@@ -58,8 +59,6 @@ public class GameManager : MonoBehaviour
         if (!lastCheckpointPass) return;
 
         _checkpointPass[number] = true;
-        Debug.Log("checkpoint pass : " + number);
-
         CheckRoundIsFinish(number);
     }
 
@@ -123,10 +122,7 @@ public class GameManager : MonoBehaviour
 
         if (index < 0)
         {
-            //TODO
-            //No checkpoint pass
-            //Return default value (start line)
-            return gameObject.transform;
+            return _lineStart.transform;
         }
 
         return _checkpoints[index].gameObject.transform;

@@ -37,7 +37,6 @@ public class Vehicule : MonoBehaviour
     public void Respawn()
     {
         _motor.InstantStopVehicule();
-        //TODO il faut avoir un checkpoint par défaut sur la ligne de départ pour ne pas avoir d'erreur
 
         Transform checkpointTransform = GameManager.Instance.GetLastCheckpointPosition();
 
