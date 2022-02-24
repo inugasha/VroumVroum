@@ -3,6 +3,7 @@ using UnityEngine;
 public class Vehicule : MonoBehaviour
 {
     private VehiculeMotor _motor;
+    private VehiculeController _controller;
     private int _currentHP;
 
     public delegate void HPChanged(int amount);
@@ -13,6 +14,7 @@ public class Vehicule : MonoBehaviour
     private void Start()
     {
         _motor = GetComponent<VehiculeMotor>();
+        _controller = GetComponent<VehiculeController>();
         _currentHP = _maxHP;
         HPChangedDelegate?.Invoke(_currentHP);
     }
@@ -38,7 +40,7 @@ public class Vehicule : MonoBehaviour
     {
         _motor.InstantStopVehicule();
 
-        Transform checkpointTransform = GameManager.Instance.GetLastCheckpointPosition();
+        Transform checkpointTransform = GameManager.Instance.GetLastCheckpointPosition(_controller.DeviceId);
 
         transform.position = checkpointTransform.position;
         transform.rotation = checkpointTransform.rotation;

@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform _lineStart;
     [SerializeField] private Transform[] _spawnPos;
 
-    private float _bestTime;
-    private float _actualTime;
-    private float _lastTime;
-    private bool[] _checkpointPass;
     private bool _gameStart;
+
+    private List<PlayerData> _playerDatas;
+
+    public int MaxRound;
 
     private void Awake()
     {
@@ -32,25 +32,26 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        _checkpointPass = new bool[_checkpoints.Length];
         _checkpoints = _checkpoints.OrderBy(x => x.CheckpointNumber).ToArray();
     }
 
     void Update()
     {
         if (!_gameStart) return;
-        _actualTime += Time.deltaTime;
+        _playerDatas.ForEach(x => x.AddTime(Time.deltaTime));
     }
 
-    public void CheckpointPass(int number)
+    public void CheckpointPass(int number, int deviceId)
     {
         bool lastCheckpointPass = true;
 
-        for (int i = 0; i < _checkpoints.Length; i++)
+        PlayerData data = GetPlayerData(deviceId);
+
+        for (int i = 0; i < data.CheckpointPassed.Length; i++)
         {
             if (_checkpoints[i].CheckpointNumber < number)
             {
-                if (!_checkpointPass[i])
+                if (!data.CheckpointPassed[i])
                 {
                     lastCheckpointPass = false;
                 }
@@ -59,17 +60,19 @@ public class GameManager : MonoBehaviour
 
         if (!lastCheckpointPass) return;
 
-        _checkpointPass[number] = true;
-        CheckRoundIsFinish(number);
+        data.CheckpointPassed[number] = true;
+        CheckRoundIsFinish(number, deviceId);
     }
 
-    private void CheckRoundIsFinish(int number)
+    private void CheckRoundIsFinish(int number, int deviceId)
     {
         bool isLastCheckpoint = false;
 
-        if (number == _checkpointPass.Length)
+        PlayerData data = GetPlayerData(deviceId);
+
+        if (number == data.CheckpointPassed.Length)
         {
-            if (_checkpointPass.Count(x => !x) <= 0)
+            if (data.CheckpointPassed.Count(x => !x) <= 0)
             {
                 isLastCheckpoint = true;
             }
@@ -77,48 +80,51 @@ public class GameManager : MonoBehaviour
 
         if (isLastCheckpoint)
         {
-            SetTimer();
-
-            for (int i = 0; i < _checkpointPass.Length; i++)
-            {
-                _checkpointPass[i] = false;
-            }
+            RoundFinished(data);
         }
 
     }
 
-    private void SetTimer()
+    private void RoundFinished(PlayerData data)
     {
-        _lastTime = _actualTime;
-        _actualTime = 0f;
-
-        if (_lastTime < _bestTime)
+        data.RoundFinished();
+        if (data.RaceFinish(MaxRound))
         {
-            _bestTime = _lastTime;
+            Debug.Log($"Player {data.DeviceId} as finish");
         }
     }
 
     public void StartGame(List<Gamepad> gamepads)
     {
         int index = 0;
+        _playerDatas = new List<PlayerData>();
 
         foreach (var gamepad in gamepads)
         {
             GameObject instance = Instantiate(_vehiculePrefab, _spawnPos[index].transform.position, Quaternion.identity);
             instance.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId);
+
+            PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId);
+            _playerDatas.Add(data);
             index++;
         }
 
         _gameStart = true;
     }
 
-    public Transform GetLastCheckpointPosition()
+    private PlayerData GetPlayerData(int deviceId)
+    {
+        return _playerDatas.FirstOrDefault(x => x.DeviceId == deviceId);
+    }
+
+    public Transform GetLastCheckpointPosition(int deviceId)
     {
         int index = -1;
+        PlayerData data = GetPlayerData(deviceId);
 
-        for (int i = 0; i < _checkpointPass.Length; i++)
+        for (int i = 0; i < data.CheckpointPassed.Length; i++)
         {
-            if (_checkpointPass[i])
+            if (data.CheckpointPassed[i])
             {
                 index = i;
             }

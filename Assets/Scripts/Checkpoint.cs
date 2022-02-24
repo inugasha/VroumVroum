@@ -7,10 +7,10 @@ public class Checkpoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        VehiculeMotor motor = other.GetComponent<VehiculeMotor>();
-        if (motor != null)
+        VehiculeController controller = other.GetComponent<VehiculeController>();
+        if (controller != null)
         {
-            GameManager.Instance.CheckpointPass(CheckpointNumber);
+            GameManager.Instance.CheckpointPass(CheckpointNumber, controller.DeviceId);
         }
     }
 }

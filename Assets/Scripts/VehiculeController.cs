@@ -15,7 +15,7 @@ public class VehiculeController : MonoBehaviour
     [Header("Motor braking")] public float BrakeTorque = 50f;
     [Header("Wheel rotation")] public float Rotation = 30f;
 
-    private int _deviceId;
+    [HideInInspector] public int DeviceId;
     private Gamepad _gamepad;
 
     private void Start()
@@ -32,9 +32,9 @@ public class VehiculeController : MonoBehaviour
 
     public void SetDeviceId(int deviceId)
     {
-        _deviceId = deviceId;
+        DeviceId = deviceId;
 
-        _gamepad = Gamepad.all.ToList().FirstOrDefault(x => x.deviceId == _deviceId);
+        _gamepad = Gamepad.all.ToList().FirstOrDefault(x => x.deviceId == DeviceId);
         if (_gamepad == null)
         {
             Debug.LogError("No device found with this Id : " + deviceId);
