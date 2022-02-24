@@ -6,7 +6,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        FindObjectOfType<Vehicule>().HPChangedDelegate += HPChanged;
+        //FindObjectOfType<Vehicule>().HPChangedDelegate += HPChanged;
     }
 
     private void HPChanged(int amount)

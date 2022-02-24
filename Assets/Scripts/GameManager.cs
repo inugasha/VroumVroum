@@ -1,11 +1,14 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     [SerializeField] private Checkpoint[] _checkpoints;
+    [SerializeField] private GameObject _vehiculePrefab;
 
     private float _bestTime;
     private float _actualTime;
@@ -66,7 +69,7 @@ public class GameManager : MonoBehaviour
 
         if (number == _checkpointPass.Length)
         {
-            if(_checkpointPass.Count(x => !x) <= 0)
+            if (_checkpointPass.Count(x => !x) <= 0)
             {
                 isLastCheckpoint = true;
             }
@@ -89,14 +92,20 @@ public class GameManager : MonoBehaviour
         _lastTime = _actualTime;
         _actualTime = 0f;
 
-        if(_lastTime < _bestTime)
+        if (_lastTime < _bestTime)
         {
             _bestTime = _lastTime;
         }
     }
 
-    public void StartGame()
+    public void StartGame(List<Gamepad> gamepads)
     {
+        foreach (var gamepad in gamepads)
+        {
+            GameObject instance = Instantiate(_vehiculePrefab);
+            instance.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId);
+        }
+
         _gameStart = true;
     }
 
@@ -112,7 +121,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if(index < 0)
+        if (index < 0)
         {
             //TODO
             //No checkpoint pass
