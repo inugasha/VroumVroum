@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,16 +8,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    public bool GameStart;
+    public int MaxRound;
+
     [SerializeField] private Checkpoint[] _checkpoints;
     [SerializeField] private GameObject _vehiculePrefab;
     [SerializeField] private Transform _lineStart;
     [SerializeField] private Transform[] _spawnPos;
 
-    private bool _gameStart;
-
     private List<PlayerData> _playerDatas;
-
-    public int MaxRound;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!_gameStart) return;
+        if (!GameStart) return;
         _playerDatas.ForEach(x => x.AddTime(Time.deltaTime));
     }
 
@@ -94,9 +94,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartGame(List<Gamepad> gamepads)
+    public void StartGame(List<Gamepad> gamepads, int maxRound)
     {
         int index = 0;
+        MaxRound = maxRound;
         _playerDatas = new List<PlayerData>();
 
         foreach (var gamepad in gamepads)
@@ -109,9 +110,23 @@ public class GameManager : MonoBehaviour
             index++;
         }
 
-        _gameStart = true;
+        StartCoroutine(WaitingTimeBeforeStart());
     }
 
+    private IEnumerator WaitingTimeBeforeStart()
+    {
+        int remainingTime = 3;
+
+        while (remainingTime > 0)
+        {
+            UIManager.Instance.DisplayTextInFront(remainingTime.ToString());
+            yield return new WaitForSeconds(1f);
+            remainingTime--;
+        }
+
+        UIManager.Instance.DisplayTextInFront("START!");
+        GameStart = true;
+    }
     private PlayerData GetPlayerData(int deviceId)
     {
         return _playerDatas.FirstOrDefault(x => x.DeviceId == deviceId);
