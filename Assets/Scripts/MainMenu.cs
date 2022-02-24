@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -69,8 +68,6 @@ public class MainMenu : MonoBehaviour
         {
             _playButton.interactable = true;
         }
-
-        Debug.Log(_gamepads.Count);
     }
 
 

@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Checkpoint[] _checkpoints;
     [SerializeField] private GameObject _vehiculePrefab;
     [SerializeField] private Transform _lineStart;
+    [SerializeField] private Transform[] _spawnPos;
 
     private float _bestTime;
     private float _actualTime;
@@ -99,10 +100,13 @@ public class GameManager : MonoBehaviour
 
     public void StartGame(List<Gamepad> gamepads)
     {
+        int index = 0;
+
         foreach (var gamepad in gamepads)
         {
-            GameObject instance = Instantiate(_vehiculePrefab);
+            GameObject instance = Instantiate(_vehiculePrefab, _spawnPos[index].transform.position, Quaternion.identity);
             instance.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId);
+            index++;
         }
 
         _gameStart = true;
