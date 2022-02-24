@@ -1,12 +1,14 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    [SerializeField] private TMPro.TMP_Text _HPText;
     [SerializeField] private TMPro.TMP_Text _BigText;
+    [SerializeField] private GameObject _playerUIPrefab;
+    [SerializeField] private Transform _playerUIParent;
 
     private void Awake()
     {
@@ -20,29 +22,22 @@ public class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    public void Setup(List<Vehicule> vehicules)
     {
-        //TODO
-        //FindObjectOfType<Vehicule>().HPChangedDelegate += HPChanged;
+        foreach (Vehicule vehicule in vehicules)
+        {
+            GameObject uiInstance = Instantiate(_playerUIPrefab, _playerUIParent);
+            uiInstance.GetComponent<PlayerUi>().Setup(vehicule);
+        }
     }
 
-    public void Setup()
-    {
-
-    }
-
-    private void HPChanged(int amount)
-    {
-        _HPText.text = $"{amount} HP";
-    }
-
-
-    public void DisplayTextInFront(string value,float time = 0f)
+    public void DisplayTextInFront(string value, float time = 0f)
     {
         _BigText.text = value;
 
-        if(time > 0f)
+        if (time > 0f)
         {
+            StopAllCoroutines();
             StartCoroutine(HideText(time, _BigText));
         }
     }

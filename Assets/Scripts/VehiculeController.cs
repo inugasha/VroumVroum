@@ -103,6 +103,14 @@ public class VehiculeController : MonoBehaviour
         }
     }
 
+    private void OnDamage()
+    {
+        if (_gamepad.buttonWest.IsPressed(1f))
+        {
+            _vehicule.TakeDamage(15);
+        }
+    }
+
     private void CalculateWheelsRotation()
     {
         _motor.SteerAngle = _movementX * Rotation;

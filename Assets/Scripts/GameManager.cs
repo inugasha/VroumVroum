@@ -100,15 +100,20 @@ public class GameManager : MonoBehaviour
         MaxRound = maxRound;
         _playerDatas = new List<PlayerData>();
 
+        List<Vehicule> vehicules = new List<Vehicule>();
+
         foreach (var gamepad in gamepads)
         {
             GameObject instance = Instantiate(_vehiculePrefab, _spawnPos[index].transform.position, Quaternion.identity);
             instance.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId);
+            vehicules.Add(instance.GetComponent<Vehicule>());
 
             PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId);
             _playerDatas.Add(data);
             index++;
         }
+
+        UIManager.Instance.Setup(vehicules);
 
         StartCoroutine(WaitingTimeBeforeStart());
     }
@@ -124,7 +129,7 @@ public class GameManager : MonoBehaviour
             remainingTime--;
         }
 
-        UIManager.Instance.DisplayTextInFront("START!");
+        UIManager.Instance.DisplayTextInFront("START!", 1f);
         GameStart = true;
     }
     private PlayerData GetPlayerData(int deviceId)

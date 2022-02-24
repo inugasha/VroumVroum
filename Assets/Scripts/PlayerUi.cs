@@ -1,21 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerUi : MonoBehaviour
 {
     private int _maxHP;
-    private Slider _slider;
+    [SerializeField] private Slider _slider;
     [SerializeField] private Gradient _gradient;
     [SerializeField] private Image _fill;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _slider = GetComponentInChildren<Slider>();
-    }
-
 
     public void Setup(Vehicule vehicule)
     {
@@ -29,6 +20,6 @@ public class PlayerUi : MonoBehaviour
     private void UpdateHP(int amount)
     {
         _slider.value = amount;
-        _fill.color = _gradient.Evaluate(amount/_maxHP);
+        _fill.color = _gradient.Evaluate((float)amount/(float)_maxHP);
     }
 }
