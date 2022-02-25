@@ -3,6 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(WheelCollider))]
 public class Wheel : MonoBehaviour
 {
+    [SerializeField] private Transform _wheelTransform;
     private WheelCollider _wheelCollider;
 
     [HideInInspector] public float MotorTorque;
@@ -15,6 +16,7 @@ public class Wheel : MonoBehaviour
     private void Start()
     {
         _wheelCollider = GetComponent<WheelCollider>();
+        _wheelTransform = GetComponentInChildren<MeshRenderer>().GetComponent<Transform>();
     }
 
     private void FixedUpdate()
@@ -25,6 +27,8 @@ public class Wheel : MonoBehaviour
         {
             PerformAngle();
         }
+
+        _wheelTransform.rotation = _wheelCollider.transform.rotation;
     }
 
     private void PerformMovement()
