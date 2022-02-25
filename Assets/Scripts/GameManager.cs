@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Checkpoint[] _checkpoints;
     [SerializeField] private GameObject _vehiculePrefab;
-    [SerializeField] private Transform _lineStart;
     [SerializeField] private Transform[] _spawnPos;
     [SerializeField] private PlayerInputManager _playerInputManager;
     [SerializeField] private GameObject _playerCamPrefab;
@@ -164,8 +163,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerInput input = _playerInputManager.JoinPlayer(index, index, "Gamepad", gamepad.device);
         input.gameObject.transform.position = _spawnPos[index].transform.position;
-        input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);
-        
+        input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);        
 
         return input;
     }
@@ -187,7 +185,7 @@ public class GameManager : MonoBehaviour
 
             SetupPlayerCamera(input.gameObject, index, gamepads.Count);
 
-            PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId);
+            PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId, index);
             _playerDatas.Add(data);
             index++;
         }
@@ -231,10 +229,10 @@ public class GameManager : MonoBehaviour
 
         if (index < 0)
         {
-            return _lineStart.transform;
+            return _spawnPos[data.PlayerIndex];
         }
 
-        return _checkpoints[index].gameObject.transform;
+        return _checkpoints[index].RespawnPoints[data.PlayerIndex];
     }
 
 }

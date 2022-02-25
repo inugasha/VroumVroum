@@ -4,6 +4,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public int CheckpointNumber;
+    public Transform[] RespawnPoints;
 
     private void OnTriggerEnter(Collider other)
     {
