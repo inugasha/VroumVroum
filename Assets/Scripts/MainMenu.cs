@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject _lobbyMenu;
     [SerializeField] private string _gameSceneName;
     [SerializeField] private GameObject _utilPrefab;
+    [SerializeField] private GameObject _controlMenu;
     [SerializeField] private Button _playButton;
     [SerializeField] private GameObject _playerInfoUIPrefab;
     [SerializeField] private GameObject _playersUI;
@@ -37,6 +38,11 @@ public class MainMenu : MonoBehaviour
         _gamepads.Clear();
 
         _playerUis.ForEach(x => Destroy(x));
+    }
+
+    public void HideShowControlMenu()
+    {
+        _controlMenu.SetActive(!_controlMenu.activeInHierarchy);
     }
 
     public void StartGame()
