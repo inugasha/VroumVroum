@@ -13,10 +13,15 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private Button _playButton;
     [SerializeField] private GameObject _playerInfoUIPrefab;
     [SerializeField] private GameObject _playersUI;
+    [SerializeField] private TMPro.TextMeshProUGUI _roundText;
 
     private List<int> _gamepadIds = new List<int>();
     private List<Gamepad> _gamepads = new List<Gamepad>();
     private List<GameObject> _playerUis = new List<GameObject>();
+    private int _currentRound;
+
+    [SerializeField] private int _minRound;
+    [SerializeField] private int _maxRound;
 
     public void OpenLobbyMenu()
     {
@@ -36,16 +41,22 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        //TODO afficher le nbre de tour et rendre modifiable
-        int maxRound = 3;
-
         GameObject instance = Instantiate(_utilPrefab);
 
         DontDestroyOnLoad(instance);
 
         AsyncOperation asyncOp = SceneManager.LoadSceneAsync(_gameSceneName);
-        instance.GetComponent<Utils>().SetupGame(asyncOp, _gamepads, maxRound);
+        instance.GetComponent<Utils>().SetupGame(asyncOp, _gamepads, _currentRound);
     }
+
+    public void UpdateMaxRound(int value)
+    {
+        _currentRound = Mathf.Clamp(_currentRound += value, _minRound, _maxRound);
+
+        _roundText.text = $"Round : {_currentRound}";
+    }
+
+
 
     private void OnAddPlayer()
     {
