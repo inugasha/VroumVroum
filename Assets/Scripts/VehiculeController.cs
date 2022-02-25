@@ -18,6 +18,8 @@ public class VehiculeController : MonoBehaviour
     [HideInInspector] public int DeviceId;
     private Gamepad _gamepad;
 
+    [SerializeField] private Transform _graphicParent;
+
     private void Start()
     {
         _motor = GetComponent<VehiculeMotor>();
@@ -31,7 +33,7 @@ public class VehiculeController : MonoBehaviour
         CalculateWheelsRotation();
     }
 
-    public void SetDeviceId(int deviceId)
+    public void SetDeviceId(int deviceId, int playerIndex)
     {
         DeviceId = deviceId;
 
@@ -40,6 +42,14 @@ public class VehiculeController : MonoBehaviour
         {
             Debug.LogError("No device found with this Id : " + deviceId);
             this.enabled = false;
+        }
+
+        int i = 0;
+
+        foreach (Transform child in _graphicParent)
+        {
+            child.gameObject.SetActive(playerIndex == i);
+            i++;
         }
     }
 
@@ -117,12 +127,13 @@ public class VehiculeController : MonoBehaviour
     }
 
     private void OnMove()
-    {
+    {        
         _movementX = _gamepad.leftStick.ReadValue().x;
     }
 
     private void OnAcceleration()
     {
+        Debug.Log(_gamepad.deviceId);
         _moveForward = _gamepad.rightTrigger.ReadValue();
     }
 

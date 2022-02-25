@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _vehiculePrefab;
     [SerializeField] private Transform _lineStart;
     [SerializeField] private Transform[] _spawnPos;
+    [SerializeField] private PlayerInputManager _playerInputManager;
 
     private List<PlayerData> _playerDatas;
 
@@ -102,11 +103,14 @@ public class GameManager : MonoBehaviour
 
         List<Vehicule> vehicules = new List<Vehicule>();
 
+        _playerInputManager.playerPrefab = _vehiculePrefab;
+
         foreach (var gamepad in gamepads)
         {
-            GameObject instance = Instantiate(_vehiculePrefab, _spawnPos[index].transform.position, Quaternion.identity);
-            instance.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId);
-            vehicules.Add(instance.GetComponent<Vehicule>());
+            PlayerInput input = _playerInputManager.JoinPlayer(index, index, "Gamepad", gamepad.device);
+            input.gameObject.transform.position = _spawnPos[index].transform.position;
+            input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);
+            vehicules.Add(input.gameObject.GetComponent<Vehicule>());
 
             PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId);
             _playerDatas.Add(data);
