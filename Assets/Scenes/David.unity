@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6ec9f04eb485a64d9b6a06e268cadce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cam: {fileID: 0}
 --- !u!1 &599998979
 GameObject:
   m_ObjectHideFlags: 3
@@ -774,6 +775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CheckpointNumber: 0
+  RespawnPoints: []
 --- !u!65 &1796918167
 BoxCollider:
   m_ObjectHideFlags: 0
