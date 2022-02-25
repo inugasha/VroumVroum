@@ -8,6 +8,7 @@ public class Vehicule : MonoBehaviour
 
     public delegate void HPChanged(int amount);
     public HPChanged HPChangedDelegate;
+    public PlayerData Data;
 
     [SerializeField] private int _maxHP = 100;
 

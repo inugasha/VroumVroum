@@ -163,7 +163,7 @@ public class GameManager : MonoBehaviour
     {
         PlayerInput input = _playerInputManager.JoinPlayer(index, index, "Gamepad", gamepad.device);
         input.gameObject.transform.position = _spawnPos[index].transform.position;
-        input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);        
+        input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);
 
         return input;
     }
@@ -181,12 +181,15 @@ public class GameManager : MonoBehaviour
         foreach (var gamepad in gamepads)
         {
             PlayerInput input = SetupPlayerInput(index, gamepad);
-            vehicules.Add(input.gameObject.GetComponent<Vehicule>());
+            Vehicule vehicule = input.gameObject.GetComponent<Vehicule>();
 
             SetupPlayerCamera(input.gameObject, index, gamepads.Count);
 
             PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId, index);
             _playerDatas.Add(data);
+
+            vehicule.Data = data;
+            vehicules.Add(vehicule);
             index++;
         }
 

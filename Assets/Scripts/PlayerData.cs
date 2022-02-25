@@ -10,6 +10,8 @@ public class PlayerData
         DeviceId = deviceId;
         CheckpointPassed = new bool[checkpointAmount];
         PlayerIndex = playerIndex;
+
+        CurrentRound = 1;
     }
 
     public int DeviceId;
