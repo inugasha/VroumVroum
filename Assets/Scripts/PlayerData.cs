@@ -5,10 +5,11 @@ public class PlayerData
     public event ValueChanged LastTimeChanged;
     public event ValueChanged CurrentRoundChanged;
 
-    public PlayerData(int checkpointAmount, int deviceId)
+    public PlayerData(int checkpointAmount, int deviceId, int playerIndex)
     {
         DeviceId = deviceId;
         CheckpointPassed = new bool[checkpointAmount];
+        PlayerIndex = playerIndex;
     }
 
     public int DeviceId;
@@ -16,6 +17,7 @@ public class PlayerData
     public float BestTime;
     public float LastTime;
     public int CurrentRound;
+    public int PlayerIndex;
 
     private float _actualTime;
 
