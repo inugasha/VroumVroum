@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
         List<Vehicule> vehicules = new List<Vehicule>();
 
-        _playerInputManager.playerPrefab = _vehiculePrefab;
+        _playerInputManager.playerPrefab = _vehiculePrefab;        
 
         foreach (var gamepad in gamepads)
         {
@@ -110,6 +110,9 @@ public class GameManager : MonoBehaviour
             input.gameObject.transform.position = _spawnPos[index].transform.position;
             input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);
             vehicules.Add(input.gameObject.GetComponent<Vehicule>());
+
+            //TODO temporaire
+            FindObjectOfType<SetupCam>().Setup(input.gameObject);
 
             PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId);
             _playerDatas.Add(data);

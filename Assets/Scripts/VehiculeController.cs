@@ -8,12 +8,17 @@ public class VehiculeController : MonoBehaviour
     [SerializeField] private Transform _graphicParent;
     [SerializeField] private DamageData[] _damageDatas;
 
+    [Header("Smoke VFX")]
+    [SerializeField] private ParticleSystem _smokeParticule;//Smoke
+
     private VehiculeMotor _motor;
     private Vehicule _vehicule;
     private float _moveForward;
     private float _moveBackward;
     private float _movementX;
     private Gamepad _gamepad;
+
+   
 
     [Header("Motor speed")] public float MotorTorque = 25f;
     [Header("Motor braking")] public float BrakeTorque = 50f;
@@ -105,6 +110,23 @@ public class VehiculeController : MonoBehaviour
         _motor.SteerAngle = _movementX * Rotation;
     }
 
+    private void SpawnVFX(bool forceSpawn = false)
+    {
+        if (forceSpawn)
+        {
+            _smokeParticule.Emit(1);//Smoke
+            return;
+        }
+        
+        if (_movementX > 0.15f)//Smoke
+        {
+            _smokeParticule.Emit(1);//Smoke
+        }
+        else//Smoke
+        {
+            _smokeParticule.Emit(0);//Smoke
+        }
+    }
     #region Event
 
     private void Start()
@@ -115,9 +137,15 @@ public class VehiculeController : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.GameStart) return;
+        if (!GameManager.Instance.GameStart)
+        {
+            SpawnVFX(true);
+            return;
+        }
         CalculateTorque();
         CalculateWheelsRotation();
+
+        SpawnVFX();
     }
 
     private void OnMove()
