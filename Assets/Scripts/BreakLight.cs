@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BreakLight : MonoBehaviour
@@ -13,11 +11,11 @@ public class BreakLight : MonoBehaviour
 		_light.enabled = false;
 	}
 
-	void Update()
+	void LateUpdate()
 	{
-		if (_vehiculeController.MoveBackward > 0.0f)
+		if (_vehiculeController.MoveBackward < 0.0f)
 		{
-			_light.enabled = !_light.enabled;
+			_light.enabled = true;
 		}
 		else
         {
