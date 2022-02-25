@@ -18,7 +18,11 @@ public class VehiculeController : MonoBehaviour
     private float _movementX;
     private Gamepad _gamepad;
 
-   
+    public float MoveBackward
+    {
+        get { return _moveBackward; }
+        private set { _moveBackward = value; }
+    }
 
     [Header("Motor speed")] public float MotorTorque = 25f;
     [Header("Motor braking")] public float BrakeTorque = 50f;
