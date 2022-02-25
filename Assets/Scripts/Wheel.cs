@@ -27,8 +27,9 @@ public class Wheel : MonoBehaviour
         {
             PerformAngle();
         }
-
-        _wheelTransform.rotation = _wheelCollider.transform.rotation;
+        _wheelCollider.GetWorldPose(out Vector3 pos, out Quaternion rot);
+        _wheelTransform.position = pos;
+        _wheelTransform.rotation = rot;
     }
 
     private void PerformMovement()
