@@ -4,12 +4,7 @@ using Cinemachine;
 [RequireComponent(typeof(CinemachineVirtualCamera))]
 public class SetupCam : MonoBehaviour
 {
-    CinemachineVirtualCamera _cam;
-
-    private void Start()
-    {
-        _cam = GetComponent<CinemachineVirtualCamera>();
-    }
+    [SerializeField] private CinemachineVirtualCamera _cam;
 
     public void Setup(GameObject target)
     {

@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform _lineStart;
     [SerializeField] private Transform[] _spawnPos;
     [SerializeField] private PlayerInputManager _playerInputManager;
+    [SerializeField] private GameObject _playerCamPrefab;
 
     private List<PlayerData> _playerDatas;
 
@@ -94,6 +95,81 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetupPlayerCamera(GameObject cameraTarget, int index, int playerCount)
+    {
+        float screenRationWidth = .5f;
+        float screenRationHeight = playerCount > 2 ? .5f : 1f;
+
+        GameObject camInstance = Instantiate(_playerCamPrefab);
+        camInstance.GetComponent<SetupCam>().Setup(cameraTarget.gameObject);
+
+        Camera cam = camInstance.GetComponent<Camera>();
+
+        switch (playerCount)
+        {
+            case 2:
+
+                if (index == 0)
+                {
+                    cam.rect = new Rect(0f, 0f, screenRationWidth, screenRationHeight);
+                }
+                else
+                {
+                    cam.rect = new Rect(.5f, 0f, screenRationWidth, screenRationHeight);
+                }
+
+                break;
+
+            case 3:
+
+                if (index == 0)
+                {
+                    cam.rect = new Rect(.25f, 0f, screenRationWidth, screenRationHeight);
+                }
+                else if (index == 3)
+                {
+                    cam.rect = new Rect(0f, .5f, screenRationWidth, screenRationHeight);
+                }
+                else
+                {
+                    cam.rect = new Rect(.5f, .5f, screenRationWidth, screenRationHeight);
+                }
+
+                break;
+
+            case 4:
+
+                if (index == 0)
+                {
+                    cam.rect = new Rect(.5f, .5f, screenRationWidth, screenRationHeight);
+                }
+                else if (index == 1)
+                {
+                    cam.rect = new Rect(0f, .5f, screenRationWidth, screenRationHeight);
+                }
+                else if (index == 2)
+                {
+                    cam.rect = new Rect(.5f, 0f, screenRationWidth, screenRationHeight);
+                }
+                else
+                {
+                    cam.rect = new Rect(0f, 0f, screenRationWidth, screenRationHeight);
+                }
+
+                break;
+        }
+    }
+
+    private PlayerInput SetupPlayerInput(int index, Gamepad gamepad)
+    {
+        PlayerInput input = _playerInputManager.JoinPlayer(index, index, "Gamepad", gamepad.device);
+        input.gameObject.transform.position = _spawnPos[index].transform.position;
+        input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);
+        
+
+        return input;
+    }
+
     public void StartGame(List<Gamepad> gamepads, int maxRound)
     {
         int index = 0;
@@ -102,17 +178,14 @@ public class GameManager : MonoBehaviour
 
         List<Vehicule> vehicules = new List<Vehicule>();
 
-        _playerInputManager.playerPrefab = _vehiculePrefab;        
+        _playerInputManager.playerPrefab = _vehiculePrefab;
 
         foreach (var gamepad in gamepads)
         {
-            PlayerInput input = _playerInputManager.JoinPlayer(index, index, "Gamepad", gamepad.device);
-            input.gameObject.transform.position = _spawnPos[index].transform.position;
-            input.gameObject.GetComponent<VehiculeController>().SetDeviceId(gamepad.deviceId, index);
+            PlayerInput input = SetupPlayerInput(index, gamepad);
             vehicules.Add(input.gameObject.GetComponent<Vehicule>());
 
-            //TODO temporaire
-            FindObjectOfType<SetupCam>().Setup(input.gameObject);
+            SetupPlayerCamera(input.gameObject, index, gamepads.Count);
 
             PlayerData data = new PlayerData(_checkpoints.Length, gamepad.deviceId);
             _playerDatas.Add(data);
