@@ -763,6 +763,18 @@ PrefabInstance:
       propertyPath: _checkpoints.Array.data[2]
       value: 
       objectReference: {fileID: 1921246100}
+    - target: {fileID: 7325539445058472176, guid: ca21d5d2720282747aad4eaf13b19699, type: 3}
+      propertyPath: _playerCamPrefab.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325539445058472176, guid: ca21d5d2720282747aad4eaf13b19699, type: 3}
+      propertyPath: _playerCamPrefab.Array.data[0]
+      value: 
+      objectReference: {fileID: 6606671312810937012, guid: 0d1ce179e1ffee740b0e6c87a4b243dd, type: 3}
+    - target: {fileID: 7325539445058472176, guid: ca21d5d2720282747aad4eaf13b19699, type: 3}
+      propertyPath: _playerCamPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 3650163253146573027, guid: 32a26ecb2ccc8044da13977523cf6aad, type: 3}
     - target: {fileID: 7325539445058472177, guid: ca21d5d2720282747aad4eaf13b19699, type: 3}
       propertyPath: m_Name
       value: GameManager

@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _vehiculePrefab;
     [SerializeField] private Transform[] _spawnPos;
     [SerializeField] private PlayerInputManager _playerInputManager;
-    [SerializeField] private GameObject _playerCamPrefab;
+    [SerializeField] private GameObject[] _playerCamPrefab;
 
     private List<PlayerData> _playerDatas;
 
@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         float screenRationWidth = .5f;
         float screenRationHeight = playerCount > 2 ? .5f : 1f;
 
-        GameObject camInstance = Instantiate(_playerCamPrefab);
+        GameObject camInstance = Instantiate(_playerCamPrefab[index]);
         camInstance.GetComponent<SetupCam>().Setup(cameraTarget.gameObject);
 
         Camera cam = camInstance.GetComponent<Camera>();
