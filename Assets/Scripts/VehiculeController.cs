@@ -5,33 +5,20 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(VehiculeMotor), typeof(Vehicule))]
 public class VehiculeController : MonoBehaviour
 {
+    [SerializeField] private Transform _graphicParent;
+    [SerializeField] private DamageData[] _damageDatas;
+
     private VehiculeMotor _motor;
     private Vehicule _vehicule;
     private float _moveForward;
     private float _moveBackward;
     private float _movementX;
+    private Gamepad _gamepad;
 
     [Header("Motor speed")] public float MotorTorque = 25f;
     [Header("Motor braking")] public float BrakeTorque = 50f;
     [Header("Wheel rotation")] public float Rotation = 30f;
-
     [HideInInspector] public int DeviceId;
-    private Gamepad _gamepad;
-
-    [SerializeField] private Transform _graphicParent;
-
-    private void Start()
-    {
-        _motor = GetComponent<VehiculeMotor>();
-        _vehicule = GetComponent<Vehicule>();
-    }
-
-    private void Update()
-    {
-        if (!GameManager.Instance.GameStart) return;
-        CalculateTorque();
-        CalculateWheelsRotation();
-    }
 
     public void SetDeviceId(int deviceId, int playerIndex)
     {
@@ -113,27 +100,33 @@ public class VehiculeController : MonoBehaviour
         }
     }
 
-    private void OnDamage()
-    {
-        if (_gamepad.buttonWest.IsPressed(1f))
-        {
-            _vehicule.TakeDamage(15);
-        }
-    }
-
     private void CalculateWheelsRotation()
     {
         _motor.SteerAngle = _movementX * Rotation;
     }
 
+    #region Event
+
+    private void Start()
+    {
+        _motor = GetComponent<VehiculeMotor>();
+        _vehicule = GetComponent<Vehicule>();
+    }
+
+    private void Update()
+    {
+        if (!GameManager.Instance.GameStart) return;
+        CalculateTorque();
+        CalculateWheelsRotation();
+    }
+
     private void OnMove()
-    {        
+    {
         _movementX = _gamepad.leftStick.ReadValue().x;
     }
 
     private void OnAcceleration()
     {
-        Debug.Log(_gamepad.deviceId);
         _moveForward = _gamepad.rightTrigger.ReadValue();
     }
 
@@ -150,4 +143,14 @@ public class VehiculeController : MonoBehaviour
             _vehicule.Respawn();
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        DamageData? data = _damageDatas.FirstOrDefault(x => x.Tag == collision.gameObject.tag);
+        if (data == null) return;
+
+        _vehicule.TakeDamage(((DamageData)data).Damage);
+    }
+
+    #endregion
 }

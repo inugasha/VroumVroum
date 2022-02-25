@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 537519089463271681}
   m_Layer: 0
   m_Name: Wheels
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 6460907448960096357}
   m_Layer: 0
   m_Name: Vehicule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,12 +121,12 @@ MonoBehaviour:
   BrakeTorque: 500
   Rotation: 45
   DeviceId: 0
-  _graphics:
-  - {fileID: 6595517975823643889, guid: dc2d480a214417246bb9dd241c9b3dfa, type: 3}
-  - {fileID: 5738973358098349393, guid: 2e1ce9075500a74458b00dbd29f7cc76, type: 3}
-  - {fileID: 3709646520620229195, guid: 7ec17acac00079e4399d9b08b5498fe7, type: 3}
-  - {fileID: 9059237806808947014, guid: 04e28ef0261425345aa661e939c79c80, type: 3}
   _graphicParent: {fileID: 8224545031049575743}
+  _damageDatas:
+  - Tag: Player
+    Damage: 20
+  - Tag: Obstacle
+    Damage: 10
 --- !u!114 &8224545030060866555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +168,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.2, y: 2.1, z: 4}
-  m_Center: {x: 0, y: 1.05, z: -0.025}
+  m_Size: {x: 2.625007, y: 2.1, z: 4.843011}
+  m_Center: {x: 0.027391315, y: 1.05, z: 0.09202719}
 --- !u!114 &6460907448960096357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 8224545030171424040}
   m_Layer: 0
   m_Name: CenterOfMass
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 8224545031049575743}
   m_Layer: 0
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -257,6 +257,10 @@ PrefabInstance:
     - target: {fileID: 1252828908020590770, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
       propertyPath: m_Name
       value: FrontRightWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252828908020590770, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2564069058868905966, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
       propertyPath: IsMotorWheel
@@ -400,6 +404,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrontLeftWheel
       objectReference: {fileID: 0}
+    - target: {fileID: 1252828908020590770, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 2564069058868905966, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
       propertyPath: IsMotorWheel
       value: 1
@@ -517,6 +525,10 @@ PrefabInstance:
     - target: {fileID: 1252828908020590770, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
       propertyPath: m_Name
       value: BackRightWheel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1252828908020590770, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3105418763509785511, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
       propertyPath: m_LocalPosition.x
@@ -648,6 +660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackLeftWheel
       objectReference: {fileID: 0}
+    - target: {fileID: 1252828908020590770, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 3105418763509785511, guid: e86addf7d6c2c744896a8ffabaa93340, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -762,6 +778,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3709646520620229195, guid: 7ec17acac00079e4399d9b08b5498fe7, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4048911400694020337, guid: 7ec17acac00079e4399d9b08b5498fe7, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -872,6 +892,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5738973358098349393, guid: 2e1ce9075500a74458b00dbd29f7cc76, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e1ce9075500a74458b00dbd29f7cc76, type: 3}
 --- !u!4 &7196641463337458951 stripped
@@ -938,6 +962,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6595517975823643889, guid: dc2d480a214417246bb9dd241c9b3dfa, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc2d480a214417246bb9dd241c9b3dfa, type: 3}
 --- !u!4 &6950425871817508565 stripped
@@ -1003,6 +1031,10 @@ PrefabInstance:
     - target: {fileID: 9059237806808947014, guid: 04e28ef0261425345aa661e939c79c80, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9059237806808947014, guid: 04e28ef0261425345aa661e939c79c80, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04e28ef0261425345aa661e939c79c80, type: 3}

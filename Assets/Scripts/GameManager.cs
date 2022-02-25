@@ -7,7 +7,6 @@ using UnityEngine.InputSystem;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
     public bool GameStart;
     public int MaxRound;
 
